@@ -108,157 +108,156 @@ namespace s3d
 	}
 
 	const Circle& Circle::draw(const ColorF& color) const
-	{
+	{	
 		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircle(
 			center,
 			static_cast<float>(r),
 			color.toFloat4()
 		);
-
 		return *this;
 	}
 
-	const Circle& Circle::drawFrame(const double thickness, const ColorF& color) const
-	{
-		return drawFrame(thickness * 0.5, thickness * 0.5, color);
-	}
+	// const Circle& Circle::drawFrame(const double thickness, const ColorF& color) const
+	// {
+	// 	return drawFrame(thickness * 0.5, thickness * 0.5, color);
+	// }
 
-	const Circle& Circle::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
-	{
-		const Float4 colorF = color.toFloat4();
+	// const Circle& Circle::drawFrame(double innerThickness, double outerThickness, const ColorF& color) const
+	// {
+	// 	const Float4 colorF = color.toFloat4();
 
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleFrame(
-			center,
-			static_cast<float>(r - innerThickness),
-			static_cast<float>(innerThickness + outerThickness),
-			colorF,
-			colorF
-		);
+	// 	Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleFrame(
+	// 		center,
+	// 		static_cast<float>(r - innerThickness),
+	// 		static_cast<float>(innerThickness + outerThickness),
+	// 		colorF,
+	// 		colorF
+	// 	);
 
-		return *this;
-	}
+	// 	return *this;
+	// }
 
-	const Circle& Circle::drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
-	{
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleFrame(
-			center,
-			static_cast<float>(r - innerThickness),
-			static_cast<float>(innerThickness + outerThickness),
-			innerColor.toFloat4(),
-			outerColor.toFloat4()
-		);
+	// const Circle& Circle::drawFrame(double innerThickness, double outerThickness, const ColorF& innerColor, const ColorF& outerColor) const
+	// {
+	// 	Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleFrame(
+	// 		center,
+	// 		static_cast<float>(r - innerThickness),
+	// 		static_cast<float>(innerThickness + outerThickness),
+	// 		innerColor.toFloat4(),
+	// 		outerColor.toFloat4()
+	// 	);
 
-		return *this;
-	}
+	// 	return *this;
+	// }
 
-	const Circle& Circle::drawPie(double startAngle, double angle, const ColorF& color) const
-	{
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCirclePie(
-			center,
-			static_cast<float>(r),
-			static_cast<float>(startAngle),
-			static_cast<float>(angle),
-			color.toFloat4()
-		);
+	// const Circle& Circle::drawPie(double startAngle, double angle, const ColorF& color) const
+	// {
+	// 	Siv3DEngine::Get<ISiv3DRenderer2D>()->addCirclePie(
+	// 		center,
+	// 		static_cast<float>(r),
+	// 		static_cast<float>(startAngle),
+	// 		static_cast<float>(angle),
+	// 		color.toFloat4()
+	// 	);
 
-		return *this;
-	}
+	// 	return *this;
+	// }
 
-	const Circle& Circle::drawArc(double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& color) const
-	{
-		Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleArc(
-			center,
-			static_cast<float>(r - innerThickness),
-			static_cast<float>(startAngle),
-			static_cast<float>(angle),
-			static_cast<float>(innerThickness + outerThickness),
-			color.toFloat4()
-		);
+	// const Circle& Circle::drawArc(double startAngle, double angle, double innerThickness, double outerThickness, const ColorF& color) const
+	// {
+	// 	Siv3DEngine::Get<ISiv3DRenderer2D>()->addCircleArc(
+	// 		center,
+	// 		static_cast<float>(r - innerThickness),
+	// 		static_cast<float>(startAngle),
+	// 		static_cast<float>(angle),
+	// 		static_cast<float>(innerThickness + outerThickness),
+	// 		color.toFloat4()
+	// 	);
 
-		return *this;
-	}
+	// 	return *this;
+	// }
 
-	const Circle& Circle::drawShadow(const Vec2& offset, double blurRadius, double spread, const ColorF& color) const
-	{
-		if (blurRadius < 0.0)
-		{
-			return *this;
-		}
+	// const Circle& Circle::drawShadow(const Vec2& offset, double blurRadius, double spread, const ColorF& color) const
+	// {
+	// 	if (blurRadius < 0.0)
+	// 	{
+	// 		return *this;
+	// 	}
 
-		if (blurRadius * 0.5 > (r + spread))
-		{
-			blurRadius = (r + spread) * 2.0;
-		}
+	// 	if (blurRadius * 0.5 > (r + spread))
+	// 	{
+	// 		blurRadius = (r + spread) * 2.0;
+	// 	}
 
-		const float absR = std::abs(static_cast<float>(r + spread));
-		const float inShadowR = static_cast<float>(r + spread - blurRadius * 0.5);
-		const float shadowR = absR + static_cast<float>(blurRadius * 0.5);
-		const float scaledShadowR = shadowR;
-		const float centerX = static_cast<float>(center.x + offset.x);
-		const float centerY = static_cast<float>(center.y + offset.y);
-		const Float4 colorF = color.toFloat4();
+	// 	const float absR = std::abs(static_cast<float>(r + spread));
+	// 	const float inShadowR = static_cast<float>(r + spread - blurRadius * 0.5);
+	// 	const float shadowR = absR + static_cast<float>(blurRadius * 0.5);
+	// 	const float scaledShadowR = shadowR;
+	// 	const float centerX = static_cast<float>(center.x + offset.x);
+	// 	const float centerY = static_cast<float>(center.y + offset.y);
+	// 	const Float4 colorF = color.toFloat4();
 
-		const uint16 quality = static_cast<uint16>(Min(scaledShadowR * 0.225f + 18.0f, 255.0f));
+	// 	const uint16 quality = static_cast<uint16>(Min(scaledShadowR * 0.225f + 18.0f, 255.0f));
 
-		const uint16 outerVertexSize = quality;
-		const uint16 innnerVertexSize = quality;
+	// 	const uint16 outerVertexSize = quality;
+	// 	const uint16 innnerVertexSize = quality;
 
-		const uint16 outerIndexSize = quality * 6;
-		const uint16 innnerIndexSize = quality * 3;
+	// 	const uint16 outerIndexSize = quality * 6;
+	// 	const uint16 innnerIndexSize = quality * 3;
 
-		const uint16 vertexSize = outerVertexSize + innnerVertexSize + 1;
-		const uint16 indexSize = outerIndexSize + innnerIndexSize;
+	// 	const uint16 vertexSize = outerVertexSize + innnerVertexSize + 1;
+	// 	const uint16 indexSize = outerIndexSize + innnerIndexSize;
 
-		Sprite sprite(vertexSize, indexSize);
+	// 	Sprite sprite(vertexSize, indexSize);
 
-		const float radDelta = Math::TwoPiF / quality;
+	// 	const float radDelta = Math::TwoPiF / quality;
 
-		for (uint32 i = 0; i < quality; ++i)
-		{
-			const float rad = radDelta * i;
-			const float c = std::cos(rad);
-			const float s = std::sin(rad);
+	// 	for (uint32 i = 0; i < quality; ++i)
+	// 	{
+	// 		const float rad = radDelta * i;
+	// 		const float c = std::cos(rad);
+	// 		const float s = std::sin(rad);
 			
-			Vertex2D* inner = &sprite.vertices[i];
-			Vertex2D* outer = inner + outerVertexSize;
+	// 		Vertex2D* inner = &sprite.vertices[i];
+	// 		Vertex2D* outer = inner + outerVertexSize;
 			
-			inner->pos.set(centerX + shadowR * c, centerY - shadowR * s);
-			inner->tex.set(0.5f, 0.0f);
-			inner->color = colorF;
+	// 		inner->pos.set(centerX + shadowR * c, centerY - shadowR * s);
+	// 		inner->tex.set(0.5f, 0.0f);
+	// 		inner->color = colorF;
 
-			outer->pos.set(centerX + inShadowR * c, centerY - inShadowR * s);
-			outer->tex.set(0.5f, 0.5f);
-			outer->color = colorF;
-		}
+	// 		outer->pos.set(centerX + inShadowR * c, centerY - inShadowR * s);
+	// 		outer->tex.set(0.5f, 0.5f);
+	// 		outer->color = colorF;
+	// 	}
 
-		{
-			Vertex2D* v = &sprite.vertices[vertexSize - 1];
-			v->pos.set(centerX, centerY);
-			v->tex.set(0.5f, 0.5f);
-			v->color = colorF;
-		}
+	// 	{
+	// 		Vertex2D* v = &sprite.vertices[vertexSize - 1];
+	// 		v->pos.set(centerX, centerY);
+	// 		v->tex.set(0.5f, 0.5f);
+	// 		v->color = colorF;
+	// 	}
 
-		for (uint16 i = 0; i < quality; ++i)
-		{
-			sprite.indices[i * 6 + 0] = i % (outerVertexSize);
-			sprite.indices[i * 6 + 1] = (i + 1) % (outerVertexSize);
-			sprite.indices[i * 6 + 2] = (i + outerVertexSize) % (outerVertexSize * 2);
-			sprite.indices[i * 6 + 3] = (i + outerVertexSize) % (outerVertexSize * 2);
-			sprite.indices[i * 6 + 4] = (i + 1) % (outerVertexSize);
-			sprite.indices[i * 6 + 5] = (i + 1) % (outerVertexSize)+outerVertexSize;
-		}
+	// 	for (uint16 i = 0; i < quality; ++i)
+	// 	{
+	// 		sprite.indices[i * 6 + 0] = i % (outerVertexSize);
+	// 		sprite.indices[i * 6 + 1] = (i + 1) % (outerVertexSize);
+	// 		sprite.indices[i * 6 + 2] = (i + outerVertexSize) % (outerVertexSize * 2);
+	// 		sprite.indices[i * 6 + 3] = (i + outerVertexSize) % (outerVertexSize * 2);
+	// 		sprite.indices[i * 6 + 4] = (i + 1) % (outerVertexSize);
+	// 		sprite.indices[i * 6 + 5] = (i + 1) % (outerVertexSize)+outerVertexSize;
+	// 	}
 
-		for (uint16 i = 0; i < quality; ++i)
-		{
-			sprite.indices[outerIndexSize + i * 3 + 0] = outerVertexSize + (i + 0);
-			sprite.indices[outerIndexSize + i * 3 + 1] = vertexSize - 1;
-			sprite.indices[outerIndexSize + i * 3 + 2] = outerVertexSize + (i + 1) % quality;
-		}
+	// 	for (uint16 i = 0; i < quality; ++i)
+	// 	{
+	// 		sprite.indices[outerIndexSize + i * 3 + 0] = outerVertexSize + (i + 0);
+	// 		sprite.indices[outerIndexSize + i * 3 + 1] = vertexSize - 1;
+	// 		sprite.indices[outerIndexSize + i * 3 + 2] = outerVertexSize + (i + 1) % quality;
+	// 	}
 
-		sprite.draw(Siv3DEngine::Get<ISiv3DRenderer2D>()->getBoxShadowTexture());
+	// 	sprite.draw(Siv3DEngine::Get<ISiv3DRenderer2D>()->getBoxShadowTexture());
 
-		return *this;
-	}
+	// 	return *this;
+	// }
 
 	TexturedCircle Circle::operator ()(const Texture& texture) const
 	{

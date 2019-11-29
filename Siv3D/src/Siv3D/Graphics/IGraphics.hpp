@@ -29,11 +29,11 @@ namespace s3d
 		virtual void clear() = 0;
 
 		virtual void flush() = 0;
-
+#if 000
 		virtual void setSceneTextureFilter(TextureFilter textureFilter) = 0;
 
 		virtual TextureFilter getSceneTextureFilter() const = 0;
-
+#endif
 		virtual void setBackgroundColor(const ColorF& color) = 0;
 
 		virtual void setLetterboxColor(const ColorF& color) = 0;
@@ -57,9 +57,10 @@ namespace s3d
 		virtual void resizeBuffers(const Size& backBufferSize, const Size& sceneSize) = 0;
 
 		virtual Optional<Rect> getFullscreenRect() = 0;
-
+#if 000
 		virtual void requestScreenCapture() = 0;
 
 		virtual const Image& getScreenCapture() const = 0;
+#endif
 	};
 }

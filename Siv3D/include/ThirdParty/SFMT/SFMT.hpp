@@ -124,9 +124,7 @@ the parameters of SFMT
 	# include <arm_neon.h>
 
 # elif defined(HAVE_SSE2)
-
-	# include <emmintrin.h>
-
+	# include <Siv3D/SSE2.hpp>
 # endif
 
 namespace s3d::sfmt

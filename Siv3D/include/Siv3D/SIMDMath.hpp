@@ -11,14 +11,15 @@
 
 # pragma once
 # include <cassert>
-# include <xmmintrin.h>
-# include <emmintrin.h>
+# include "SSE2.hpp"
 # include <utility>
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 
 # define SIV3D_USE_SSE3
-
+#if SIV3D_PLATFORM(WEB)
+# undef SIV3D_USE_SSE3
+#endif
 # ifdef SIV3D_USE_SSE3
 #	include <pmmintrin.h>
 # endif

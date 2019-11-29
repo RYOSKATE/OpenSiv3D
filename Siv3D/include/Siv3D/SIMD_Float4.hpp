@@ -10,7 +10,7 @@
 //-----------------------------------------------
 
 # pragma once
-# include <xmmintrin.h>
+# include "SSE2.hpp"
 # include "Fwd.hpp"
 # include "PointVector.hpp"
 # include "SIMDMath.hpp"

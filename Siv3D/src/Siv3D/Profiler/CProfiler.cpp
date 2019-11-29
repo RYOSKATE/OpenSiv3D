@@ -91,11 +91,18 @@ namespace s3d
 	String CProfiler::getSimpleStatistics() const
 	{
 		const Size backBufferSize = Window::ClientSize();
+	#if 000
 		const Size sceneSize = Scene::Size();
 		return U"{} FPS | W {}x{} | S {}x{}"_fmt(
 			m_currentFPS,
 			backBufferSize.x, backBufferSize.y,
 			sceneSize.x, sceneSize.y);
+	#else
+		return U"{} FPS | W {}x{} | S {}x{}"_fmt(
+			m_currentFPS,
+			backBufferSize.x, backBufferSize.y,
+			-800, -600);
+	#endif
 	}
 
 	void CProfiler::setAssetCreationWarningEnabled(const bool enabled)

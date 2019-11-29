@@ -662,7 +662,7 @@
 
 // SIMD 演算
 // SIMD
-# include <Siv3D/SIMDMath.hpp>
+//# include <Siv3D/SIMDMath.hpp>
 
 // 半精度浮動小数点数
 // Half-Pecision Floating-Point

@@ -10,6 +10,7 @@
 //-----------------------------------------------
 
 # include <Siv3D/Image.hpp>
+#if 000
 # include <Siv3D/ImageRegion.hpp>
 # include <Siv3D/ImageProcessing.hpp>
 # include <Siv3D/BinaryWriter.hpp>
@@ -28,7 +29,12 @@
 
 # include <opencv2/imgproc.hpp>
 # include <opencv2/photo.hpp>
-
+#else
+# include <Siv3D/ByteArray.hpp>
+# include <Siv3D/EngineLog.hpp>
+# include <Siv3DEngine.hpp>
+# include <ImageFormat/IImageFormat.hpp>
+#endif
 namespace s3d
 {
 	namespace detail
@@ -40,6 +46,7 @@ namespace s3d
 
 		[[nodiscard]] static constexpr int32 ConvertBorderType(const BorderType borderType)
 		{
+#if 000			
 			switch (borderType)
 			{
 			case BorderType::Replicate:
@@ -53,6 +60,9 @@ namespace s3d
 			default:
 				return cv::BORDER_DEFAULT;
 			}
+#else
+return 0;
+#endif			
 		}
 
 		static void MakeSepia(const double levr, const double levg, const double levb, Color& pixel)
@@ -142,7 +152,7 @@ namespace s3d
 				pLine += imgWidth;
 			}
 		}
-
+#if 000
 		[[nodiscard]] static MultiPolygon ToPolygonsWithoutHoles(const cv::Mat_<uint8>& gray)
 		{
 			MultiPolygon polygons;
@@ -325,6 +335,7 @@ namespace s3d
 
 			return polygons[index];
 		}
+#endif
 	}
 
 	Image::Image(Image&& image) noexcept
@@ -452,7 +463,7 @@ namespace s3d
 			pixel.b = rgb.b;
 		}
 	}
-
+#if 000
 	Image::Image(const Emoji& emoji)
 	{
 		*this = Emoji::CreateImage(emoji.codePoints);
@@ -462,7 +473,7 @@ namespace s3d
 	{
 		*this = Icon::CreateImage(icon.code, icon.size);
 	}
-
+#endif
 	Image::Image(const Grid<Color>& grid)
 		: Image(grid.width(), grid.height())
 	{
@@ -792,7 +803,7 @@ namespace s3d
 
 		return true;
 	}
-
+#if 000
 	bool Image::save(const FilePath& path, ImageFormat format) const
 	{
 		if (isEmpty())
@@ -986,7 +997,7 @@ namespace s3d
 
 		return writer.retrieve();
 	}
-
+#endif
 	Image& Image::negate()
 	{
 		// 1. パラメータチェック
@@ -1615,7 +1626,7 @@ namespace s3d
 
 		return image;
 	}
-
+#if 000
 	Image & Image::adaptiveThreshold(const AdaptiveMethod method, int32 blockSize, const double c, const bool inverse)
 	{
 		// 1. パラメータチェック
@@ -1678,7 +1689,7 @@ namespace s3d
 
 		return image;
 	}
-
+#endif
 	Image & Image::mosaic(const int32 size)
 	{
 		return mosaic(size, size);
@@ -1887,7 +1898,7 @@ namespace s3d
 	{
 		return blur(size, size);
 	}
-
+#if 000
 	Image& Image::blur(const int32 horizontal, const int32 vertical)
 	{
 		// 1. パラメータチェック
@@ -2986,4 +2997,5 @@ namespace s3d
 			}
 		}
 	}
+#endif
 }

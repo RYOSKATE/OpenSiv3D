@@ -17,6 +17,10 @@
 #	include <intrin.h>
 # endif
 
+# if SIV3D_PLATFORM(WEB)
+#	include <emscripten.h>
+# endif
+
 namespace s3d::Platform
 {
 //////////////////////////////////////////////////
@@ -25,7 +29,7 @@ namespace s3d::Platform
 //
 //////////////////////////////////////////////////
 
-# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
+# if SIV3D_PLATFORM(WINDOWS) || SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX) || SIV3D_PLATFORM(WEB)
 
 	constexpr size_t PointerSize = 8;
 	constexpr size_t AllocatorAlignment = 16;
@@ -48,7 +52,7 @@ namespace s3d::Platform
 
 	inline constexpr bool HasEmbeddedResource = true;
 
-# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX) || SIV3D_PLATFORM(WEB)
 
 	inline constexpr bool HasEmbeddedResource = false;
 
@@ -77,7 +81,7 @@ namespace s3d::Platform
 		::_aligned_free(p);
 	}
 
-# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX) || SIV3D_PLATFORM(WEB)
 
 	inline void* AlignedMalloc(size_t size, size_t alignment)
 	{
@@ -116,7 +120,7 @@ namespace s3d::Platform
 
 	using NativeFilePath = std::wstring;
 
-# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX) || SIV3D_PLATFORM(WEB)
 
 	using NativeFilePath = std::string;
 
@@ -148,6 +152,11 @@ namespace s3d::Platform
 		__asm__ __volatile__("rdtsc" : "=a"(lo), "=d"(hi));
 		return static_cast<uint64>(lo) | (static_cast<uint64>(hi) << 32);
 	}
+# elif SIV3D_PLATFORM(WEB)
+	inline uint64 Rdtsc()
+	{
+		return static_cast<int64_t>(emscripten_get_now() * 1e+6);
+	}
 
 # else
 
@@ -167,7 +176,7 @@ namespace s3d::Platform
 
 	# define SIV3D_CONCURRENT_TASK_IS_DONE base_type::_Is_ready()
 
-# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX)
+# elif SIV3D_PLATFORM(MACOS) || SIV3D_PLATFORM(LINUX) || SIV3D_PLATFORM(WEB)
 
 	# define SIV3D_CONCURRENT_TASK_IS_DONE (base_type::wait_for(std::chrono::seconds(0)) == std::future_status::ready)
 

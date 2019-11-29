@@ -11,10 +11,13 @@
 
 # include <Siv3D/IReader.hpp>
 # include <Siv3D/BinaryReader.hpp>
+#if 000
 # include <Siv3D/MemoryWriter.hpp>
+#endif
 # include <Siv3D/FileSystem.hpp>
 # include <Siv3D/EngineLog.hpp>
 # include "CImageFormat.hpp"
+#if 000
 # include "BMP/ImageFormat_BMP.hpp"
 # include "PNG/ImageFormat_PNG.hpp"
 # include "JPEG/ImageFormat_JPEG.hpp"
@@ -22,7 +25,9 @@
 # include "PPM/ImageFormat_PPM.hpp"
 # include "TGA/ImageFormat_TGA.hpp"
 # include "WebP/ImageFormat_WebP.hpp"
-
+#else
+# include <Siv3D/Image.hpp>
+#endif
 namespace s3d
 {
 	CImageFormat::CImageFormat()
@@ -38,7 +43,7 @@ namespace s3d
 	void CImageFormat::init()
 	{
 		LOG_TRACE(U"CImageFormat::init()");
-
+#if 000
 		m_imageFormats.push_back(std::make_unique<ImageFormat_BMP>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_PNG>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_JPEG>());
@@ -46,7 +51,7 @@ namespace s3d
 		m_imageFormats.push_back(std::make_unique<ImageFormat_PPM>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_TGA>());
 		m_imageFormats.push_back(std::make_unique<ImageFormat_WebP>());
-
+#endif
 		Array<String> extensions;
 		for (const auto& format : m_imageFormats)
 		{
@@ -144,6 +149,7 @@ namespace s3d
 
 	ByteArray CImageFormat::encode(const Image& image, ImageFormat format) const
 	{
+#if 000		
 		const auto it = findFormat(format);
 
 		if (it == m_imageFormats.end())
@@ -159,6 +165,8 @@ namespace s3d
 		}
 
 		return writer.retrieve();
+#endif 
+return ByteArray();
 	}
 
 	bool CImageFormat::encodePNG(IWriter& writer, const Image& image, int32 filterFlag) const
@@ -169,12 +177,12 @@ namespace s3d
 		{
 			return false;
 		}
-
+#if 000
 		if (const ImageFormat_PNG* png = dynamic_cast<ImageFormat_PNG*>(p->get()))
 		{
 			return png->encode(image, writer, filterFlag);
 		}
-
+#endif
 		return false;
 	}
 
@@ -186,12 +194,12 @@ namespace s3d
 		{
 			return false;
 		}
-
+#if 000
 		if (const ImageFormat_JPEG* jpeg = dynamic_cast<ImageFormat_JPEG*>(p->get()))
 		{
 			return jpeg->encode(image, writer, quality);
 		}
-
+#endif
 		return false;
 	}
 
@@ -203,12 +211,12 @@ namespace s3d
 		{
 			return false;
 		}
-
+#if 000
 		if (const ImageFormat_PPM* ppm = dynamic_cast<ImageFormat_PPM*>(p->get()))
 		{
 			return ppm->encode(image, writer, type);
 		}
-
+#endif
 		return false;
 	}
 
@@ -220,12 +228,12 @@ namespace s3d
 		{
 			return false;
 		}
-
+#if 000
 		if (const ImageFormat_WebP* webP = dynamic_cast<ImageFormat_WebP*>(p->get()))
 		{
 			return webP->encode(image, writer, lossless, quality, method);
 		}
-
+#endif
 		return false;
 	}
 

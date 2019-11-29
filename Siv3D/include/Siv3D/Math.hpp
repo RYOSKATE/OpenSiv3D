@@ -11,7 +11,11 @@
 
 # pragma once
 # include <cfloat>
+#if SIV3D_PLATFORM(WEB)
+# include <wasm_simd128.h>
+#else
 # include <emmintrin.h>
+#endif
 # include <numeric>
 # include "Utility.hpp"
 # include "PointVector.hpp"

@@ -25,6 +25,10 @@
 # define SIV3D_PIXEL_SHADER_EXTENSION U".frag"
 # define SIV3D_SELECT_SHADER(HLSL_SHADER_EXTENSION, GLSL_SHADER_EXTENSION) GLSL_SHADER_EXTENSION
 
+# elif SIV3D_PLATFORM(WEB)
+
+	#pragma message("ToDo")
+
 # else
 
 # error Unimplemented

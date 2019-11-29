@@ -20,11 +20,14 @@ namespace s3d
 	{
 		void SkipClearScreen()
 		{
+			#if 000
 			Siv3DEngine::Get<ISiv3DGraphics>()->skipClearScreen();
+			#endif
 		}
 
 		Array<Size> GetFullscreenResolutions(const double minRefreshRate)
 		{
+#if 000
 			const Array<DisplayOutput> outputs = Graphics::EnumOutputs();
 			const size_t currentMonitorIndex = System::GetCurrentMonitorIndex();
 
@@ -32,9 +35,9 @@ namespace s3d
 			{
 				return{};
 			}
-
+#endif
 			Array<Size> availableResolutions;
-
+#if 000
 			for (const auto& displayMode : outputs[currentMonitorIndex].displayModes)
 			{
 				const Size resolution = displayMode.size;
@@ -45,28 +48,36 @@ namespace s3d
 					availableResolutions << resolution;
 				}
 			}
-
+#endif
 			return availableResolutions;
 		}
 
 		void SetTargetFrameRateHz(const Optional<double>& targetFrameRateHz)
 		{
+#if 000
 			Siv3DEngine::Get<ISiv3DGraphics>()->setTargetFrameRateHz(targetFrameRateHz);
+#endif
 		}
 
 		Optional<double> GetTargetFrameRateHz()
 		{
+#if 000
 			return Siv3DEngine::Get<ISiv3DGraphics>()->getTargetFrameRateHz();
+#endif
 		}
 
 		double GetDisplayRefreshRateHz()
 		{
+#if 000			
 			return Siv3DEngine::Get<ISiv3DGraphics>()->getDisplayRefreshRateHz();
+#endif
 		}
 
 		double GetDPIScaling()
 		{
+#if 000
 			return Siv3DEngine::Get<ISiv3DGraphics>()->getDPIScaling();
+#endif
 		}
 	}
 }
